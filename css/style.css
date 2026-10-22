@@ -1,3 +1,4 @@
+/*variables generales*/
 :root {
   --color-text: #2a201c;
   --color-text-muted: #5c4a44;
@@ -66,4 +67,169 @@ img {
   max-width: 1200px;
   margin-inline: auto;
   padding-inline: 1.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* deja espacio para que el header no tape el título */
+}
+
+/*  Botones  */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  padding-inline: 1.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+}
+
+.btn-whatsapp {
+  background: var(--color-whatsapp);
+  color: #fff;
+}
+
+.btn-whatsapp:hover {
+  background: var(--color-whatsapp-hover);
+}
+
+/* Header (celular primero)*/
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-gold);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.75rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.logo-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.logo-sub {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold-text);
+}
+
+/* El checkbox existe, pero no se ve */
+.menu-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1.5px solid var(--color-gold);
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+
+.burger svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.icon-close {
+  display: none;
+}
+
+.menu-toggle:checked ~ .burger .icon-bars {
+  display: none;
+}
+
+.menu-toggle:checked ~ .burger .icon-close {
+  display: inline;
+}
+
+.menu-toggle:focus-visible ~ .burger {
+  outline: 3px solid var(--color-gold-text);
+  outline-offset: 3px;
+}
+
+/* Menú desplegable: oculto hasta que el checkbox se marque */
+.nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  padding: 0.5rem 1.25rem 1.5rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-gold);
+}
+
+.menu-toggle:checked ~ .nav {
+  display: flex;
+}
+
+.nav a:not(.btn) {
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.nav .btn {
+  margin-top: 1.25rem;
+}
+
+/* Escritorio */
+@media (min-width: 860px) {
+  .burger {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .nav a:not(.btn) {
+    padding-block: 0.5rem;
+    border: 0;
+    font-size: 1.125rem;
+  }
+
+  .nav .btn {
+    margin-top: 0;
+  }
 }

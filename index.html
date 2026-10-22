@@ -19,7 +19,63 @@
   </head>
 
   <body>
-    <header></header>
+    <header class="site-header">
+      <div class="container header-inner">
+        <input
+          type="checkbox"
+          id="menu-toggle"
+          class="menu-toggle"
+          aria-label="abrir o cerrar el menú"
+        />
+        <a href="#inicio" class="logo">
+          <span class="logo-name">Elma Burruel</span>
+          <span class="logo-sub">Salon &amp; Spa</span>
+        </a>
+
+        <label for="menu-toggle" class="burger">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path class="icon-bars" d="M4 7h16M4 12h16M4 17h16" />
+            <path class="icon-close" d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </label>
+        <nav class="nav" aria-label="Principal">
+          <a href="#inicio">Inicio</a>
+          <a href="servicios">Servicios</a>
+          <a href="galeria">Galería</a>
+          <a href="contacto">Contacto</a>
+          <a
+            href="https://wa.me/52XXXXXXXXXX?text=Hola%20Elma%2C%20quiero%20agendar%20una%20cita"
+            class="btn btn-whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
+              <path
+                d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
+              />
+            </svg>
+            Reserva cita
+          </a>
+        </nav>
+      </div>
+    </header>
+
     <main>
       <section id="inicio"></section>
       <section id="servicios"></section>
