@@ -332,3 +332,98 @@ html {
     gap: 3rem;
   }
 }
+
+/* ===== Secciones (estilos compartidos) ===== */
+.section {
+  padding-block: 4rem;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 42rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-head h2 {
+  font-size: clamp(2.3rem, 5vw, 3.5rem);
+}
+
+.section-head p:not(.eyebrow) {
+  color: var(--color-text-muted);
+}
+
+/* ===== Servicios ===== */
+.services {
+  background: var(--color-bg-soft);
+}
+
+.cards {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.625rem;
+  padding: 1.5rem;
+  border-top: 2px solid var(--color-gold);
+}
+
+.card h3 {
+  font-size: 2rem;
+}
+
+.card-text {
+  color: var(--color-text-muted);
+}
+
+.card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.price {
+  color: var(--color-text-muted);
+}
+
+.price strong {
+  color: var(--color-text);
+}
+
+.btn-sm {
+  min-height: 3rem;
+  padding-inline: 1.375rem;
+  font-size: 1.0625rem;
+}
+
+@media (min-width: 860px) {
+  .section {
+    padding-block: 5.5rem;
+  }
+}
