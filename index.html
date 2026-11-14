@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elma Burruel Salon &amp; Spa | Más de 20 años de experiencia</title>
+    <title>Elma Burruel Salon &amp; Spa | Salón de belleza en Hermosillo</title>
     <meta
       name="description"
-      content="Elma Burruel Salon & Spa: cortes, peinados, maquillaje, tratamientos faciales y reducción corporal. Más de 20 años de experiencia. Agenda tu cita por WhatsApp."
+      content="Salón de belleza y spa en Hermosillo, Sonora: cortes, peinados, maquillaje, tratamientos faciales y reducción corporal. Más de 20 años de experiencia. Agenda tu cita por WhatsApp."
     />
     <meta name="theme-color" content="#faf6f1" />
 
@@ -15,7 +15,7 @@
     <meta property="og:title" content="Elma Burruel Salon & Spa" />
     <meta
       property="og:description"
-      content="Estilista con más de 20 años de experiencia. Agenda tu cita por WhatsApp."
+      content="Salón de belleza y spa en Hermosillo. Estilista con más de 20 años de experiencia. Agenda tu cita por WhatsApp."
     />
     <!-- TODO: cambiar por la URL absoluta del sitio publicado, p. ej. https://tudominio.com/assets/images/elma-960.jpg -->
     <meta property="og:image" content="assets/images/elma-960.jpg" />
@@ -50,6 +50,55 @@
       document.documentElement.classList.replace("no-js", "js");
     </script>
     <script src="js/main.js" defer></script>
+
+    <!-- Datos estructurados: le dicen a Google qué negocio es, dónde está y
+         cuándo abre. Cuando el sitio tenga dominio, agrega "url" e "image"
+         con la URL absoluta. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        "name": "Elma Burruel Salon & Spa",
+        "description": "Salón de belleza y spa en Hermosillo, Sonora. Cortes, peinados, maquillaje, tratamientos faciales y reducción corporal con más de 20 años de experiencia.",
+        "telephone": "+52-662-367-4510",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Leandro Valle 535, Col. Jardines",
+          "addressLocality": "Hermosillo",
+          "addressRegion": "Sonora",
+          "addressCountry": "MX"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "10:00",
+          "closes": "20:00"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Elma Burruel",
+          "jobTitle": "Estilista"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tratamientos faciales" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reducción corporal" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Peinados" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cortes de cabello" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maquillaje" } }
+          ]
+        }
+      }
+    </script>
   </head>
 
   <body>
@@ -122,7 +171,7 @@
       <section class="hero" id="inicio">
         <div class="container hero-inner">
           <div class="hero-copy">
-            <p class="eyebrow">Salón de belleza y spa</p>
+            <p class="eyebrow">Salón de belleza y spa en Hermosillo</p>
             <h1>Tu mejor versión <em>te espera</em></h1>
             <p class="hero-lede">
               Soy Elma, estilista con más de 20 años de experiencia. Te atiendo
@@ -695,9 +744,9 @@
             <div class="info-item">
               <dt>Dirección</dt>
               <dd>
-                Leandro Valle #535, Col. Jardines
+                Leandro Valle #535, Col. Jardines<br />Hermosillo, Sonora
                 <a
-                  href="https://www.google.com/maps/search/?api=1&amp;query=Leandro+Valle+535+Col+Jardines"
+                  href="https://www.google.com/maps/search/?api=1&amp;query=Leandro+Valle+535+Col+Jardines+Hermosillo+Sonora"
                   class="info-link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -720,7 +769,7 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>© 2026 Elma Burruel Salon &amp; Spa</p>
+        <p>© 2026 Elma Burruel Salon &amp; Spa · Hermosillo, Sonora</p>
         <nav class="footer-nav" aria-label="Pie de página">
           <a href="#servicios">Servicios</a>
           <a href="#galeria">Galería</a>

@@ -64,5 +64,6 @@ servidor.
 ## Pendientes
 
 - Precios de cada servicio (hoy dicen `[PRECIO]`).
-- `og:image` necesita la URL absoluta del sitio publicado para que WhatsApp
-  muestre la vista previa al compartir el enlace.
+- `og:image` y los campos `url` e `image` del bloque JSON-LD necesitan la URL
+  absoluta del sitio publicado (dominio propio) para que WhatsApp muestre la
+  vista previa y Google tome la foto del negocio.
