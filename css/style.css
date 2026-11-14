@@ -1,10 +1,13 @@
-/*variables generales*/
+/* =====================================================================
+   Variables generales
+   ===================================================================== */
 :root {
   --color-text: #2a201c;
   --color-text-muted: #5c4a44;
   --color-bg: #faf6f1;
   --color-bg-soft: #f1e6de;
   --color-gold: #b08d57;
+  --color-gold-soft: #e6d3b3;
   --color-gold-text: #7a5a22;
   --color-line: #e4d5c6;
   --color-whatsapp: #0f7a3f;
@@ -12,12 +15,21 @@
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-body: "Nunito Sans", system-ui, sans-serif;
+
+  --shadow-sm: 0 2px 10px rgb(42 32 28 / 0.06);
+  --shadow-md: 0 14px 34px -14px rgb(42 32 28 / 0.28);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem; /* deja espacio para que el header no tape el título */
 }
 
 body {
@@ -27,13 +39,22 @@ body {
   line-height: 1.65;
   color: var(--color-text);
   background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3,
-p {
+p,
+ul,
+dl,
+dd {
   margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
 }
 
 h1,
@@ -55,13 +76,22 @@ img {
   display: block;
 }
 
+/* El <svg hidden> con los símbolos reutilizables no debe ocupar espacio */
+[hidden] {
+  display: none !important;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
 :focus-visible {
   outline: 3px solid var(--color-gold-text);
   outline-offset: 3px;
 }
 
-/* contenedor reutilizable */
-
+/* Contenedor reutilizable */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -69,12 +99,144 @@ img {
   padding-inline: 1.25rem;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* deja espacio para que el header no tape el título */
+/* =====================================================================
+   Preloader
+   Solo existe cuando hay JavaScript (clase .js en <html>). Sin JS no se
+   muestra, para que nunca bloquee el contenido.
+   ===================================================================== */
+.preloader {
+  display: none;
 }
 
-/*  Botones  */
+.js .preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  transition:
+    opacity 0.6s var(--ease),
+    visibility 0.6s;
+}
+
+.js .preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: preloader-in 0.8s var(--ease) both;
+}
+
+.preloader-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.preloader-sub {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold-text);
+}
+
+/* Línea dorada que recorre de lado a lado mientras carga */
+.preloader-line {
+  position: relative;
+  width: 9rem;
+  height: 1px;
+  margin-top: 1.5rem;
+  background: var(--color-line);
+  overflow: hidden;
+}
+
+.preloader-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-gold);
+  transform-origin: left;
+  animation: preloader-line 1.4s var(--ease) infinite;
+}
+
+@keyframes preloader-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes preloader-line {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  51% {
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+/* Mientras el preloader está visible, el contenido espera sin moverse.
+   Al terminar, el hero entra con una animación suave. */
+.js .hero-copy > *,
+.js .hero-photo {
+  opacity: 0;
+}
+
+.js.is-ready .hero-copy > *,
+.js.is-ready .hero-photo {
+  animation: rise 0.9s var(--ease) both;
+}
+
+.js.is-ready .hero-copy > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+.js.is-ready .hero-copy > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+.js.is-ready .hero-copy > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+.js.is-ready .hero-photo {
+  animation-delay: 0.2s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =====================================================================
+   Botones
+   ===================================================================== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -84,6 +246,20 @@ html {
   padding-inline: 1.75rem;
   border-radius: 999px;
   font-weight: 700;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 .btn svg {
@@ -95,19 +271,51 @@ html {
 .btn-whatsapp {
   background: var(--color-whatsapp);
   color: #fff;
+  box-shadow: 0 8px 20px -10px rgb(15 122 63 / 0.6);
 }
 
 .btn-whatsapp:hover {
   background: var(--color-whatsapp-hover);
+  box-shadow: 0 12px 24px -10px rgb(15 122 63 / 0.7);
 }
 
-/* Header (celular primero)*/
+.btn-outline {
+  border: 2px solid var(--color-text);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-gold-text);
+  color: var(--color-gold-text);
+}
+
+.btn-sm {
+  min-height: 3rem;
+  padding-inline: 1.375rem;
+  font-size: 1.0625rem;
+}
+
+.btn-lg {
+  min-height: 3.75rem;
+  padding-inline: 2.25rem;
+  font-size: 1.25rem;
+}
+
+/* =====================================================================
+   Header (celular primero)
+   ===================================================================== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--color-bg);
+  background: rgb(250 246 241 / 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-gold);
+  transition: box-shadow 0.3s var(--ease);
+}
+
+.site-header.is-scrolled {
+  box-shadow: var(--shadow-sm);
 }
 
 .header-inner {
@@ -138,23 +346,23 @@ html {
   color: var(--color-gold-text);
 }
 
-/* El checkbox existe, pero no se ve */
-.menu-toggle {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-}
-
+/* Botón hamburguesa */
 .burger {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 3.25rem;
   height: 3.25rem;
+  padding: 0;
+  background: transparent;
   border: 1.5px solid var(--color-gold);
   border-radius: 0.75rem;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.burger:hover {
+  background: var(--color-bg-soft);
 }
 
 .burger svg {
@@ -166,45 +374,70 @@ html {
   display: none;
 }
 
-.menu-toggle:checked ~ .burger .icon-bars {
+.burger[aria-expanded="true"] .icon-bars {
   display: none;
 }
 
-.menu-toggle:checked ~ .burger .icon-close {
+.burger[aria-expanded="true"] .icon-close {
   display: inline;
 }
 
-.menu-toggle:focus-visible ~ .burger {
-  outline: 3px solid var(--color-gold-text);
-  outline-offset: 3px;
-}
-
-/* Menú desplegable: oculto hasta que el checkbox se marque */
+/* Menú desplegable: oculto hasta que JS le ponga .is-open */
 .nav {
-  display: none;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
+  display: flex;
   flex-direction: column;
   padding: 0.5rem 1.25rem 1.5rem;
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-gold);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    visibility 0.25s;
 }
 
-.menu-toggle:checked ~ .nav {
-  display: flex;
+.nav.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 
-.nav a:not(.btn) {
+/* Sin JavaScript el botón no haría nada: mejor mostrar el menú siempre */
+.no-js .burger {
+  display: none;
+}
+
+.no-js .nav {
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  box-shadow: none;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.nav a {
   padding-block: 1rem;
   border-bottom: 1px solid var(--color-line);
   font-size: 1.25rem;
   font-weight: 600;
+  transition: color 0.2s;
 }
 
-.nav .btn {
-  margin-top: 1.25rem;
+.nav a:hover {
+  color: var(--color-gold-text);
 }
 
 /* Escritorio */
@@ -213,43 +446,80 @@ html {
     display: none;
   }
 
-  .nav {
-    display: flex;
+  .nav,
+  .no-js .nav {
     position: static;
     flex-direction: row;
     align-items: center;
-    gap: 2rem;
+    width: auto;
+    gap: 2.25rem;
     padding: 0;
     border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
   }
 
-  .nav a:not(.btn) {
+  .nav a {
+    position: relative;
     padding-block: 0.5rem;
     border: 0;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
   }
 
-  .nav .btn {
-    margin-top: 0;
+  /* Subrayado dorado que crece al pasar el cursor */
+  .nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .nav a:hover::after,
+  .nav a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 }
-/* ===== Hero ===== */
-.btn-outline {
-  border: 2px solid var(--color-text);
-}
 
-.btn-outline:hover {
-  border-color: var(--color-gold-text);
-  color: var(--color-gold-text);
-}
-
+/* =====================================================================
+   Hero
+   ===================================================================== */
 .hero {
-  padding-block: 2rem 4rem;
+  position: relative;
+  padding-block: 2.5rem 4rem;
+  overflow: hidden;
+}
+
+/* Resplandor dorado muy sutil detrás de la foto */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  right: -10rem;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(176 141 87 / 0.18),
+    transparent
+  );
+  pointer-events: none;
 }
 
 .hero-inner {
+  position: relative;
   display: grid;
-  gap: 2.5rem;
+  gap: 2.75rem;
 }
 
 .hero-copy {
@@ -303,16 +573,22 @@ html {
 }
 
 .hero-photo {
+  position: relative;
   width: 100%;
   max-width: 460px;
-  aspect-ratio: 4 / 5;
   margin-inline: auto;
+}
+
+.hero-photo picture {
+  display: block;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: 999px 999px 1.75rem 1.75rem;
   background: linear-gradient(165deg, #f1e3d8, #d9bca8 55%, #a8834a);
   box-shadow:
     0 0 0 8px var(--color-bg),
-    0 0 0 9px var(--color-gold);
+    0 0 0 9px var(--color-gold),
+    var(--shadow-md);
 }
 
 .hero-photo img {
@@ -321,19 +597,113 @@ html {
   object-fit: cover;
 }
 
+/* Insignia "+20 años" sobre la foto */
+.hero-badge {
+  position: absolute;
+  left: -0.5rem;
+  bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-gold);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  line-height: 1.1;
+}
+
+.hero-badge strong {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-gold-text);
+}
+
+.hero-badge span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
 @media (min-width: 860px) {
   .hero {
-    padding-block: 4.5rem;
+    padding-block: 5rem 5.5rem;
   }
 
   .hero-inner {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
-    gap: 3rem;
+    gap: 3.5rem;
+  }
+
+  .hero-photo {
+    margin-inline: auto 0;
+  }
+
+  .hero-badge {
+    left: -2rem;
+    bottom: 3rem;
   }
 }
 
-/* ===== Secciones (estilos compartidos) ===== */
+/* =====================================================================
+   Franja de confianza ("Por qué conmigo")
+   ===================================================================== */
+.trust {
+  border-block: 1px solid var(--color-line);
+  background: #fff;
+}
+
+.trust-list {
+  display: grid;
+  gap: 1.75rem;
+  padding-block: 2.5rem;
+}
+
+.trust-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1rem;
+  align-items: baseline;
+}
+
+.trust-num {
+  grid-row: 1 / span 2;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--color-gold);
+}
+
+.trust-list h2 {
+  font-size: 1.6rem;
+}
+
+.trust-list p {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 860px) {
+  .trust-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    padding-block: 3rem;
+  }
+
+  .trust-list li + li {
+    padding-left: 3rem;
+    border-left: 1px solid var(--color-line);
+  }
+}
+
+/* =====================================================================
+   Secciones (estilos compartidos)
+   ===================================================================== */
 .section {
   padding-block: 4rem;
 }
@@ -354,7 +724,15 @@ html {
   color: var(--color-text-muted);
 }
 
-/* ===== Servicios ===== */
+@media (min-width: 860px) {
+  .section {
+    padding-block: 5.5rem;
+  }
+}
+
+/* =====================================================================
+   Servicios
+   ===================================================================== */
 .services {
   background: var(--color-bg-soft);
 }
@@ -372,6 +750,20 @@ html {
   background: var(--color-bg);
   border: 1px solid var(--color-line);
   border-radius: 1.25rem;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.card picture {
+  display: block;
+  overflow: hidden;
+  background: var(--color-gold-soft);
 }
 
 .card img {
@@ -379,6 +771,11 @@ html {
   height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.card:hover img {
+  transform: scale(1.04);
 }
 
 .card-body {
@@ -416,29 +813,31 @@ html {
   color: var(--color-text);
 }
 
-.btn-sm {
-  min-height: 3rem;
-  padding-inline: 1.375rem;
-  font-size: 1.0625rem;
-}
-
-@media (min-width: 860px) {
-  .section {
-    padding-block: 5.5rem;
-  }
-}
-
-/*Galería */
+/* =====================================================================
+   Galería
+   ===================================================================== */
 .gallery {
   columns: 2;
   column-gap: 0.75rem;
 }
 
+.gallery picture {
+  display: block;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--color-gold-soft);
+  break-inside: avoid;
+}
+
 .gallery img {
   width: 100%;
-  margin-bottom: 0.75rem;
-  border-radius: 0.75rem;
-  break-inside: avoid;
+  height: auto;
+  transition: transform 0.6s var(--ease);
+}
+
+.gallery picture:hover img {
+  transform: scale(1.03);
 }
 
 @media (min-width: 860px) {
@@ -447,13 +846,15 @@ html {
     column-gap: 1.25rem;
   }
 
-  .gallery img {
+  .gallery picture {
     margin-bottom: 1.25rem;
     border-radius: 1rem;
   }
 }
 
-/*  Contacto */
+/* =====================================================================
+   Contacto
+   ===================================================================== */
 .contact {
   background: var(--color-bg-soft);
 }
@@ -486,18 +887,12 @@ html {
   color: var(--color-text-muted);
 }
 
-.btn-lg {
-  min-height: 3.75rem;
-  padding-inline: 2.25rem;
-  font-size: 1.25rem;
-}
-
 .contact-info {
   display: grid;
   gap: 1.5rem;
   width: 100%;
   max-width: 60rem;
-  margin: 2rem 0 0;
+  margin-top: 2rem;
 }
 
 .info-item {
@@ -514,19 +909,30 @@ html {
 }
 
 .info-item dd {
-  margin: 0.375rem 0 0;
+  margin-top: 0.375rem;
   font-size: 1.25rem;
 }
 
-.info-item dd a {
+.info-link {
   display: block;
   margin-top: 0.5rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-gold-text);
   text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
-/* ===== Footer ===== */
+@media (min-width: 860px) {
+  .contact-info {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+/* =====================================================================
+   Footer
+   ===================================================================== */
 .site-footer {
   padding-block: 1.75rem;
   border-top: 1px solid var(--color-gold);
@@ -536,14 +942,77 @@ html {
 
 .footer-inner {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.footer-nav {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem 1.5rem;
+  gap: 0.25rem 1.5rem;
+}
+
+.footer-nav a:hover {
+  color: var(--color-gold-text);
 }
 
 @media (min-width: 860px) {
-  .contact-info {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.5rem;
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* =====================================================================
+   Aparición suave al hacer scroll y fundido de imágenes
+   Solo con JS: sin él, todo se ve de inmediato.
+   ===================================================================== */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.js img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.js img[loading="lazy"].is-loaded {
+  opacity: 1;
+}
+
+/* =====================================================================
+   Respeto a "reducir movimiento" del sistema
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js .hero-copy > *,
+  .js .hero-photo,
+  .js [data-reveal],
+  .js img[loading="lazy"] {
+    opacity: 1;
+    transform: none;
   }
 }

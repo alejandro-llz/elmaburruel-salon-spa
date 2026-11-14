@@ -1,47 +1,100 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elma Burruel Salon &amp; Spa | Más de 20 años de experiencia</title>
     <meta
       name="description"
-      content="Elma Burruel Salon & Spa: faciales, cabello y más. Agenda tu cita por WhatsApp"
+      content="Elma Burruel Salon & Spa: cortes, peinados, maquillaje, tratamientos faciales y reducción corporal. Más de 20 años de experiencia. Agenda tu cita por WhatsApp."
     />
-    <title>Elma Burruel Salon & Spa</title>
+    <meta name="theme-color" content="#faf6f1" />
 
+    <!-- Vista previa al compartir el enlace (WhatsApp, Facebook, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Elma Burruel Salon & Spa" />
+    <meta
+      property="og:description"
+      content="Estilista con más de 20 años de experiencia. Agenda tu cita por WhatsApp."
+    />
+    <!-- TODO: cambiar por la URL absoluta del sitio publicado, p. ej. https://tudominio.com/assets/images/elma-960.jpg -->
+    <meta property="og:image" content="assets/images/elma-960.jpg" />
+    <meta property="og:locale" content="es_MX" />
+
+    <!-- Íconos -->
+    <link rel="icon" href="assets/icons/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" href="assets/icons/favicon.ico" sizes="48x48" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="assets/icons/icon-192.png"
-    />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
-    <meta name="theme-color" content="#faf6f1" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Nunito+Sans:wght@400;600;700&display=swap"
     />
+
+    <!-- La foto principal se pide desde el inicio para que aparezca cuanto antes -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      imagesrcset="assets/images/elma-480.webp 480w, assets/images/elma-960.webp 960w"
+      imagesizes="(min-width: 860px) 460px, calc(100vw - 2.5rem)"
+    />
+
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Marca que hay JavaScript disponible; sin él, el preloader no se muestra -->
+    <script>
+      document.documentElement.classList.replace("no-js", "js");
+    </script>
+    <script src="js/main.js" defer></script>
   </head>
 
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <input
-          type="checkbox"
-          id="menu-toggle"
-          class="menu-toggle"
-          aria-label="abrir o cerrar el menú"
+    <!-- Pantalla de carga: se oculta desde JS cuando la foto principal ya cargó -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <div class="preloader-brand">
+        <span class="preloader-name">Elma Burruel</span>
+        <span class="preloader-sub">Salon &amp; Spa</span>
+        <span class="preloader-line"></span>
+      </div>
+    </div>
+
+    <!-- Ícono de WhatsApp definido una sola vez; cada botón lo reutiliza con <use> -->
+    <svg hidden aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <symbol
+        id="icon-whatsapp"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
+        <path
+          d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
         />
+      </symbol>
+    </svg>
+
+    <header class="site-header" id="site-header">
+      <div class="container header-inner">
         <a href="#inicio" class="logo">
           <span class="logo-name">Elma Burruel</span>
           <span class="logo-sub">Salon &amp; Spa</span>
         </a>
 
-        <label for="menu-toggle" class="burger">
+        <button
+          type="button"
+          class="burger"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="nav-principal"
+          aria-label="Abrir menú"
+        >
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -53,8 +106,9 @@
             <path class="icon-bars" d="M4 7h16M4 12h16M4 17h16" />
             <path class="icon-close" d="M6 6l12 12M18 6L6 18" />
           </svg>
-        </label>
-        <nav class="nav" aria-label="Principal">
+        </button>
+
+        <nav class="nav" id="nav-principal" aria-label="Principal">
           <a href="#inicio">Inicio</a>
           <a href="#servicios">Servicios</a>
           <a href="#galeria">Galería</a>
@@ -64,14 +118,15 @@
     </header>
 
     <main>
+      <!-- ===== Hero ===== -->
       <section class="hero" id="inicio">
         <div class="container hero-inner">
           <div class="hero-copy">
             <p class="eyebrow">Salón de belleza y spa</p>
             <h1>Tu mejor versión <em>te espera</em></h1>
             <p class="hero-lede">
-              Soy Elma, estilista con más de 20 años de experiencia, y estaré
-              encantada de atenderte personalmente en cada servicio.
+              Soy Elma, estilista con más de 20 años de experiencia. Te atiendo
+              personalmente en cada servicio, con calma y atención al detalle.
             </p>
 
             <div class="hero-actions">
@@ -81,41 +136,83 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-                  <path
-                    d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-                  />
-                </svg>
-                Reserva cita
+                <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+                Reserva tu cita
               </a>
               <a href="#servicios" class="btn btn-outline">Ver servicios</a>
             </div>
           </div>
+
           <div class="hero-photo">
-            <img
-              src="assets/images/elma.jpeg"
-              alt="Elma Burruel"
-              width="800"
-              height="1000"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/elma-480.webp 480w,
+                  assets/images/elma-960.webp 960w
+                "
+                sizes="(min-width: 860px) 460px, calc(100vw - 2.5rem)"
+              />
+              <img
+                id="hero-img"
+                src="assets/images/elma-960.jpg"
+                srcset="
+                  assets/images/elma-480.jpg 480w,
+                  assets/images/elma-960.jpg 960w
+                "
+                sizes="(min-width: 860px) 460px, calc(100vw - 2.5rem)"
+                alt="Elma Burruel, estilista y dueña del salón"
+                width="960"
+                height="1200"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+            <p class="hero-badge">
+              <strong>+20</strong>
+              <span>años de<br />experiencia</span>
+            </p>
           </div>
         </div>
       </section>
 
+      <!-- ===== Por qué conmigo ===== -->
+      <section class="trust" aria-label="Por qué agendar con Elma">
+        <div class="container">
+          <ul class="trust-list">
+            <li data-reveal>
+              <span class="trust-num">01</span>
+              <h2>Experiencia que se nota</h2>
+              <p>
+                Más de 20 años cuidando el cabello y la piel de mis clientas.
+              </p>
+            </li>
+            <li data-reveal>
+              <span class="trust-num">02</span>
+              <h2>Atención personal</h2>
+              <p>
+                Yo misma te atiendo de principio a fin. Sin prisas y escuchando
+                lo que quieres.
+              </p>
+            </li>
+            <li data-reveal>
+              <span class="trust-num">03</span>
+              <h2>Agenda sin complicarte</h2>
+              <p>
+                Me escribes por WhatsApp y confirmamos juntas el día y la hora
+                que te acomoden.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== Servicios ===== -->
       <section class="section services" id="servicios">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head" data-reveal>
             <p class="eyebrow">Servicios</p>
-            <h2>Te ayudo a encontrar el estilo o tratamiento ideal para ti.</h2>
+            <h2>Te ayudo a encontrar el estilo o tratamiento ideal para ti</h2>
             <p>
               Elige lo que necesitas y se abre mi chat de WhatsApp con tu
               mensaje listo. Confirmamos precio y hora juntas para la
@@ -124,16 +221,32 @@
           </div>
 
           <div class="cards">
-            <article class="card">
-              <img
-                src="assets/images/tratamiento-facial-dermapen.jpg"
-                alt="Profesional aplicando tratamiento facial con dermapen"
-                width="800"
-                height="600"
-                loading="lazy"
-              />
+            <article class="card" data-reveal>
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/images/tratamiento-facial-dermapen-480.webp 480w,
+                    assets/images/tratamiento-facial-dermapen-800.webp 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                />
+                <img
+                  src="assets/images/tratamiento-facial-dermapen-800.jpg"
+                  srcset="
+                    assets/images/tratamiento-facial-dermapen-480.jpg 480w,
+                    assets/images/tratamiento-facial-dermapen-800.jpg 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                  alt="Profesional aplicando tratamiento facial con dermapen"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
-                <h3>Tratamientos Faciales</h3>
+                <h3>Tratamientos faciales</h3>
                 <p class="card-text">
                   Cuido tu piel con diferentes técnicas que mejoran su textura y
                   su luminosidad.
@@ -146,36 +259,39 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-                      <path
-                        d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-                      />
-                    </svg>
-                    Reservar</a
-                  >
+                    <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+                    Reservar
+                  </a>
                 </div>
               </div>
             </article>
-            <!-- tarjeta 2 -->
-            <article class="card">
-              <img
-                src="assets/images/reduccion-corporal.jpg"
-                alt="Profesional aplicando tratamiento de reducción corporal"
-                width="800"
-                height="600"
-                loading="lazy"
-              />
+
+            <article class="card" data-reveal>
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/images/reduccion-corporal-480.webp 480w,
+                    assets/images/reduccion-corporal-800.webp 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                />
+                <img
+                  src="assets/images/reduccion-corporal-800.jpg"
+                  srcset="
+                    assets/images/reduccion-corporal-480.jpg 480w,
+                    assets/images/reduccion-corporal-800.jpg 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                  alt="Profesional aplicando tratamiento de reducción corporal"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
-                <h3>Tratamiento de reducción corporal</h3>
+                <h3>Reducción corporal</h3>
                 <p class="card-text">
                   Ayuda a moldear la figura y reducir medidas, trabajando las
                   zonas específicas del cuerpo según tus necesidades.
@@ -183,39 +299,42 @@
                 <div class="card-foot">
                   <p class="price">Desde <strong>[PRECIO]</strong></p>
                   <a
-                    href="https://wa.me/526623674510?text=Hola%20Elma%2C%20quiero%20agendar%20un%20tratamiento%20de%20reducción%20corporal"
+                    href="https://wa.me/526623674510?text=Hola%20Elma%2C%20quiero%20agendar%20un%20tratamiento%20de%20reducci%C3%B3n%20corporal"
                     class="btn btn-whatsapp btn-sm"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-                      <path
-                        d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-                      />
-                    </svg>
-                    Reservar</a
-                  >
+                    <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+                    Reservar
+                  </a>
                 </div>
               </div>
             </article>
-            <!-- tarjeta 3 -->
-            <article class="card">
-              <img
-                src="assets/images/planchado-cabello.jpg"
-                alt="Mujer dando planchado de cabello a otra mujer"
-                width="800"
-                height="600"
-                loading="lazy"
-              />
+
+            <article class="card" data-reveal>
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/images/planchado-cabello-480.webp 480w,
+                    assets/images/planchado-cabello-800.webp 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                />
+                <img
+                  src="assets/images/planchado-cabello-800.jpg"
+                  srcset="
+                    assets/images/planchado-cabello-480.jpg 480w,
+                    assets/images/planchado-cabello-800.jpg 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                  alt="Estilista planchando el cabello de una clienta"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h3>Peinados</h3>
                 <p class="card-text">
@@ -230,40 +349,43 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-                      <path
-                        d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-                      />
-                    </svg>
-                    Reservar</a
-                  >
+                    <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+                    Reservar
+                  </a>
                 </div>
               </div>
             </article>
-            <!-- tarjeta 4 -->
-            <article class="card">
-              <img
-                src="assets/images/corte-cabello.jpg"
-                alt="Mujer cortando cabello a otra mujer con tijeras"
-                width="800"
-                height="600"
-                loading="lazy"
-              />
+
+            <article class="card" data-reveal>
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/images/corte-cabello-480.webp 480w,
+                    assets/images/corte-cabello-800.webp 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                />
+                <img
+                  src="assets/images/corte-cabello-800.jpg"
+                  srcset="
+                    assets/images/corte-cabello-480.jpg 480w,
+                    assets/images/corte-cabello-800.jpg 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                  alt="Estilista cortando el cabello de una clienta con tijeras"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h3>Cortes</h3>
                 <p class="card-text">
                   Renueva tu look o dale mantenimiento a tu corte favorito para
                   mantener tu cabello con forma, movimiento y un estilo que vaya
-                  contigo
+                  contigo.
                 </p>
                 <div class="card-foot">
                   <p class="price">Desde <strong>[PRECIO]</strong></p>
@@ -273,34 +395,37 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-                      <path
-                        d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-                      />
-                    </svg>
-                    Reservar</a
-                  >
+                    <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+                    Reservar
+                  </a>
                 </div>
               </div>
             </article>
-            <!-- tarjeta 5 -->
-            <article class="card">
-              <img
-                src="assets/images/maquillaje.jpg"
-                alt="Profesional realizando maquillaje a mujer"
-                width="800"
-                height="600"
-                loading="lazy"
-              />
+
+            <article class="card" data-reveal>
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/images/maquillaje-480.webp 480w,
+                    assets/images/maquillaje-800.webp 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                />
+                <img
+                  src="assets/images/maquillaje-800.jpg"
+                  srcset="
+                    assets/images/maquillaje-480.jpg 480w,
+                    assets/images/maquillaje-800.jpg 800w
+                  "
+                  sizes="(min-width: 860px) 370px, calc(100vw - 2.5rem)"
+                  alt="Profesional maquillando los ojos de una clienta"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h3>Maquillaje</h3>
                 <p class="card-text">
@@ -316,88 +441,240 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-                      <path
-                        d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-                      />
-                    </svg>
-                    Reservar</a
-                  >
+                    <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+                    Reservar
+                  </a>
                 </div>
               </div>
             </article>
           </div>
         </div>
       </section>
+
+      <!-- ===== Galería ===== -->
       <section class="section" id="galeria">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head" data-reveal>
             <p class="eyebrow">Galería</p>
             <h2>Algunos de mis trabajos</h2>
-            <p>Clientas atendidas en mi Salón de belleza</p>
+            <p>Clientas atendidas en mi salón.</p>
           </div>
 
-          <div class="gallery">
-            <img
-              src="assets/images/galeria-corte.jpg"
-              alt="Mujer profesional cortando cabello a otra mujer"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-facial.jpg"
-              alt="Mujer profesional dando facial a otra mujer"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-planchado.jpg"
-              alt="Mujer profesional planchando cabello a otra mujer"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-reduccion-corporal.jpg"
-              alt="Antes y Despues de reduccion de abdomen"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-peinado.jpg"
-              alt="Mujer con peinado de rizos"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-facial2.jpg"
-              alt="Mujer profesional dando tratamiento facial a otra mujer"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-planchado2.jpg"
-              alt="Mujer profesional planchando cabello a otra mujer"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-peinado2.jpg"
-              alt="Cabello en rizos de una mujer"
-              loading="lazy"
-            />
-            <img
-              src="assets/images/galeria-facial3.jpg"
-              alt="Mujer profesional dando tratamiento facial a otra mujer"
-              loading="lazy"
-            />
+          <div class="gallery" data-reveal>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-corte-400.webp 400w,
+                  assets/images/galeria-corte-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-corte-800.jpg"
+                srcset="
+                  assets/images/galeria-corte-400.jpg 400w,
+                  assets/images/galeria-corte-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Estilista cortando el cabello de una clienta"
+                width="800"
+                height="550"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-facial-400.webp 400w,
+                  assets/images/galeria-facial-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-facial-800.jpg"
+                srcset="
+                  assets/images/galeria-facial-400.jpg 400w,
+                  assets/images/galeria-facial-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Clienta recibiendo un tratamiento facial"
+                width="800"
+                height="1249"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-planchado-400.webp 400w,
+                  assets/images/galeria-planchado-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-planchado-800.jpg"
+                srcset="
+                  assets/images/galeria-planchado-400.jpg 400w,
+                  assets/images/galeria-planchado-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Estilista planchando el cabello de una clienta"
+                width="800"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-reduccion-corporal-400.webp 400w,
+                  assets/images/galeria-reduccion-corporal-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-reduccion-corporal-800.jpg"
+                srcset="
+                  assets/images/galeria-reduccion-corporal-400.jpg 400w,
+                  assets/images/galeria-reduccion-corporal-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Antes y después de un tratamiento de reducción de abdomen"
+                width="800"
+                height="696"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-peinado-400.webp 400w,
+                  assets/images/galeria-peinado-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-peinado-800.jpg"
+                srcset="
+                  assets/images/galeria-peinado-400.jpg 400w,
+                  assets/images/galeria-peinado-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Clienta con peinado de rizos"
+                width="800"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-facial2-400.webp 400w,
+                  assets/images/galeria-facial2-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-facial2-800.jpg"
+                srcset="
+                  assets/images/galeria-facial2-400.jpg 400w,
+                  assets/images/galeria-facial2-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Clienta recibiendo un tratamiento facial"
+                width="719"
+                height="1117"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-planchado2-400.webp 400w,
+                  assets/images/galeria-planchado2-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-planchado2-800.jpg"
+                srcset="
+                  assets/images/galeria-planchado2-400.jpg 400w,
+                  assets/images/galeria-planchado2-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Estilista planchando el cabello de una clienta"
+                width="800"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-peinado2-400.webp 400w,
+                  assets/images/galeria-peinado2-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-peinado2-800.jpg"
+                srcset="
+                  assets/images/galeria-peinado2-400.jpg 400w,
+                  assets/images/galeria-peinado2-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Cabello rizado de una clienta"
+                width="800"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/images/galeria-facial3-400.webp 400w,
+                  assets/images/galeria-facial3-800.webp 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+              />
+              <img
+                src="assets/images/galeria-facial3-800.jpg"
+                srcset="
+                  assets/images/galeria-facial3-400.jpg 400w,
+                  assets/images/galeria-facial3-800.jpg 800w
+                "
+                sizes="(min-width: 860px) 370px, 50vw"
+                alt="Clienta recibiendo un tratamiento facial"
+                width="800"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
       </section>
 
+      <!-- ===== Contacto ===== -->
       <section class="section contact" id="contacto">
-        <div class="container contact-inner">
+        <div class="container contact-inner" data-reveal>
           <p class="eyebrow">Contacto</p>
           <h2>Agenda tu cita conmigo</h2>
           <p class="contact-lede">
@@ -410,20 +687,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.4L3 21z" />
-              <path
-                d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.9-1.4-2.3-2.3l.8-1-1-2L9 8.5z"
-              />
-            </svg>
+            <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
             Escríbeme por WhatsApp
           </a>
 
@@ -431,9 +695,10 @@
             <div class="info-item">
               <dt>Dirección</dt>
               <dd>
-                LEANDRO VALLE #535, COL. JARDINES
+                Leandro Valle #535, Col. Jardines
                 <a
-                  href="https://www.google.com/maps/search/?api=1&amp;query=Leandro+valle+535"
+                  href="https://www.google.com/maps/search/?api=1&amp;query=Leandro+Valle+535+Col+Jardines"
+                  class="info-link"
                   target="_blank"
                   rel="noopener noreferrer"
                   >Cómo llegar</a
@@ -442,19 +707,25 @@
             </div>
             <div class="info-item">
               <dt>Horario</dt>
-              <dd>LUNES - SÁBADO <br />10 AM - 8 PM</dd>
+              <dd>Lunes a sábado<br />10:00 am – 8:00 pm</dd>
             </div>
             <div class="info-item">
-              <dt>TELEFONO</dt>
-              <dd>+52 662 367 4510</dd>
+              <dt>Teléfono</dt>
+              <dd><a href="tel:+526623674510">+52&nbsp;662&nbsp;367&nbsp;4510</a></dd>
             </div>
           </dl>
         </div>
       </section>
     </main>
+
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© 2026 Elma Burruel Salon &amp; Spa</p>
+        <nav class="footer-nav" aria-label="Pie de página">
+          <a href="#servicios">Servicios</a>
+          <a href="#galeria">Galería</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
       </div>
     </footer>
   </body>
