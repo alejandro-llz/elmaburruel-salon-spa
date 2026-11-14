@@ -1,0 +1,13 @@
+{
+  "name": "elmaburruel-salon-spa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web de Elma Burruel Salon & Spa",
+  "scripts": {
+    "images": "node scripts/optimize-images.js",
+    "start": "npx serve -l 5173 ."
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}
